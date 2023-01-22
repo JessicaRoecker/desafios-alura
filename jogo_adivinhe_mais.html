@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <meta charset="UTF-8">
+
+<input/>
+<button>Compare com o meu segredo</button>
+
+<script>
+    function sorteia() {/*Função sem parametro() para return(retornar) o Math.round(numeros sorteados pelo coomputador)*/
+
+       return Math.round(Math.random() * 10);
+
+    }
+    /*Fazendo essa função recebendo o parametro (quantidade) ira sorteiar 
+    uma quantidade de numeros que vc determinar, semrepetir nenhum numero
+    por exemplo [1,8,9,10], [2,7,11,12].....*/
+    function sorteiaNumeros(quantidade) {
+/*essa função funciona da seguinte forma: Ela ira receber a variavel seredor com o array vazio
+a criaçao da variavel numero foi feita pq eu quero ter alguma maneira de quando eu for gerar o primeiro numero, segundo ...
+saber que eu atingi a quantidade máxima de numeros que tenho que gerar. */
+        var segredos = []; /*A variavel segredos precisa começar com o array vazio */
+
+        var numero = 1;/*Esse vai ser o contador*/
+
+        while(numero <= quantidade) {
+
+              var numeroAleatorio = sorteia();
+              var achou = false;
+
+              if (numeroAleatorio !== 0) {/*Como não quero que gere o número 0, preciso primeiro verificar que o numeroAleatorio é diferente de 0*/
+                     for(var posicao = 0; posicao < segredos.length; posicao++) {
+
+                           if(segredos[posicao] == numeroAleatorio){
+                                achou = true;
+                                break;
+                           }
+
+                     }
+
+                     if (achou == false) {
+                           segredos.push(numeroAleatorio);/*o .push ira adicionar valores a um array*/
+                           numero++;/*O incremento desse numero só pode ser feito se eu não encontrei
+                           por isso ele tem que ficar dentro do laço de repetição que ira incrementar mais um numero ate o limete que vc colocou na função sorteiaNumero(quantidade) */
+                     }
+              }
+
+        }
+
+        return segredos;
+
+    }
+
+    var segredos = sorteiaNumeros(3);
+
+    console.log(segredos);
+
+    var input = document.querySelector("input");
+    input.focus();
+
+    function verifica() {
+        
+        var achou = false;
+                                      /*o .length retotna a quantidade de array[1,2,3...] que aquela variavel tem*/
+       for(var posicao = 0; posicao < segredos.length; posicao++) {
+
+              if(input.value == segredos[posicao]) {
+
+                     alert("Você ACERTOU!");
+                     achou = true;/*É necessario fazer isso para o programa 
+                     entender que ele realmente pode parar, quando o numero digitado 
+                     for realmente tru(verdadeiro)*/
+                     break;
+              } 
+       }
+    /*Agora saindo do laço de repetisão for, ai sim fazer um if para mostrar que o numero digitado é false */
+       if(achou == false) {
+
+              alert("Você ERROU!");
+       }
+
+       input.value = "";
+       input.focus();
+
+    }
+
+    var button = document.querySelector("button");
+
+    button.onclick = verifica;
+
+</script>
+</body>
+</html>
